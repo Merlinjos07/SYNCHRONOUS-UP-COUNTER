@@ -38,16 +38,28 @@ Developed by: MERLIN M
 RegisterNumber:25017648
 */
 ```
-module ex11(out,clk,rstn);
-input clk,rstn;
-output reg [3:0]out;
-always @ (posedge clk)
+module Co_ud (
+    input  wire clk,       // clock input
+    input  wire rst,       // synchronous reset
+	 input  wire d,
+    output reg  [2:0] q   // 3-bit counter output
+);
+
+initial begin
+     q <= 3'b0000;
+	 end
+
+always @(posedge clk) 
 begin
-   if(!rstn)
-     out<=0;
-   else 
-     out <= out+1;
+q <= 3'b000;
+    if (rst) 
+        q <= 3'b000;       // reset counter to 0
+    else if(d)
+        q <= q + 1;        // increment counter
+		  else
+		  q <= q - 1;
 end
+
 endmodule
 ```
 
